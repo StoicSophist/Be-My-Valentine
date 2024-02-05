@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Day</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 100px;
+        }
+
+        #question {
+            font-size: 40px;
+            margin-bottom: 20px;
+            color: purple;
+        }
+
+        .response-button {
+            font-size: 20px;
+            cursor: pointer;
+            margin: 10px;
+            padding: 10px;
+        }
+
+        #yes {
+            background-color: #4CAF50;
+            color: white;
+            font-size: 35px;
+        }
+
+        #no {
+            background-color: #f44336;
+            color: white;
+            font-size: 35px;
+        }
+
+        #result {
+            display: none;
+            font-size: 40px;
+            color: purple;
+            margin-top: 36px;
+        }
+        #counter {
+            font-size: 35px;
+            margin-top: 25px;
+            color: purple;
+        }
+    
+    </style>    
+</head>
+<body>
+
+    <div id="question">Will you be my Valentine?</div>
+    
+    <div id="yes" class="response-button" onclick="LaunchConfetti()">Yes</div>
+    <div id="no" class="response-button" onclick="handleNoClick()">No</div>
+
+    <div id="result"></div>
+    <div id="counter">No Button Clicks:<span id="noCounter">0</span></div>
+    
+    <!--canvas for the confetti and the script from CDN to access JSConfetti as a global variable -->
+    <canvas id="confetti"></canvas>
+    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+
+    <script>
+        var yesButton = document.getElementById("yes");
+        var noButton = document.getElementById("no");
+        var resultDiv = document.getElementById("result");
+        var noCounterSpan = document.getElementById("noCounter");
+        var noButtonClicks = 0;
+        
+        function handleNoClick() {
+            noButtonClicks++;
+            noCounterSpan.textContent = noButtonClicks;
+
+            var noResponses = [
+                "Oh no! Are you sure?",
+                "It's okay, if you don't love me.",
+                "No worries, maybe I'll make other plans.",
+                "Maybe you should rethink it.",
+                "Am I getting rejected over a program...this is weird.",
+                "Are you actually clicking no to see what happens?!?",
+                "I wonder how many responses you'll get to see.",
+                "Are you still hitting NO wow I see how it is.",
+                "Even your dog would've hit Yes by now",
+                "Come on say Yes Pretty Please.",
+                "I'm not getting any younger, you should click yes.",
+                "Breaking my heart whenever you click no"
+            ];
+            var randomIndex = Math.floor(Math.random() * noResponses.length);
+            var randomResponse = noResponses[randomIndex];
+            //Increasing yes button to be 130% bigger
+            var currentSize = parseInt(window.getComputedStyle(yesButton).fontSize);
+            yesButton.style.fontSize = (currentSize * 1.3) + "px";
+
+            // Choose a random response
+            var randomIndex = Math.floor(Math.random() * noResponses.length);
+                var randomResponse = noResponses[randomIndex];
+
+                // Update the text on the "No" button
+                noButton.innerHTML = randomResponse;
+
+                // Hide the result message if it was previously displayed
+                resultDiv.style.display = "none";
+        }
+    
+        const button = document.querySelector('#yes');
+        const canvas = document.querySelector('#confetti');
+        const jsConfetti = new JSConfetti();
+
+        function LaunchConfetti(){
+                jsConfetti.addConfetti()
+                resultDiv.innerHTML = "Yay! As my Valentine, there is something special in store for you soon.";
+                resultDiv.style.display = "block";
+                noCounterSpan.textContent = noButtonClicks;
+        }
+    </script>
+</body>
+</html>
